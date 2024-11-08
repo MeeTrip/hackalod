@@ -1,0 +1,11 @@
+version: '3'
+
+services:
+  osmnames-sphinxsearch:
+    image: klokantech/osmnames-sphinxsearch
+    container_name: klokantech-osmnames-sphinxsearch
+    volumes:
+      - /data/:/data/input/
+    ports:
+      - "80:80"
+    restart: always  # Ensures container restarts automatically if it fails
