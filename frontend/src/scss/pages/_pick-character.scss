@@ -1,0 +1,37 @@
+.page.pick-character {
+
+    .characters {
+        width: 100%;
+        display: flex;
+        gap: 100px;
+        background-color: rgba(rgb(26, 54, 107), .8);
+        padding-block: 100px;
+        padding-inline: 50px;
+    }
+
+    .character {
+        position: relative;
+        flex: 1 1 20%;
+
+        .name {
+            color: white;
+        }
+
+        .player {
+            width: 50px;
+        }
+
+        .bike {
+            position: absolute;
+            left: 0;
+            bottom: 0;
+            width: 120px;
+        }
+
+        &:hover {
+            .name {
+                color: rgb(84, 224, 84);
+            }
+        }
+    }
+}

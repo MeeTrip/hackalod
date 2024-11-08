@@ -1,0 +1,16 @@
+.page.pick-route {
+    .map {
+        width: 500px;
+        height: 500px;
+        pointer-events: none;
+    }
+
+    .routes {
+        display: flex;
+        justify-content: center;
+    }
+
+    .leaflet-control-container {
+        display: none;
+    }
+}
