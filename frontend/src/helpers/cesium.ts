@@ -37,7 +37,7 @@ export const cesium = async (data: any[], tickCallback: (position: { lat: number
   viewer.clock.startTime = start.clone()
   viewer.clock.stopTime = stop.clone()
   viewer.clock.currentTime = start.clone()
-  viewer.clock.multiplier = 10.0
+  viewer.clock.multiplier = 0.7
   viewer.clock.clockRange = ClockRange.LOOP_STOP
   viewer.clock.shouldAnimate = true
 
@@ -129,6 +129,11 @@ export const cesium = async (data: any[], tickCallback: (position: { lat: number
       lng: Math.toDegrees(cartographic.longitude),
       lat: Math.toDegrees(cartographic.latitude)
     })
+    // .then(speed => {
+    //   console.log(speed)
+    //   viewer.clock.multiplier = 0.2 * speed
+    // })
+
     const entityOrientation = orientation.getValue(time, scratchOrientation)
     if (entityPosition === undefined || entityOrientation === undefined) {
       return
@@ -141,4 +146,6 @@ export const cesium = async (data: any[], tickCallback: (position: { lat: number
     )
     camera.lookAtTransform(transform, offset)
   })
+
+  return viewer.clock
 }
