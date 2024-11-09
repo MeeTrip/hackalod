@@ -1,27 +1,7 @@
 import { useContext } from 'react'
 import { Link } from 'react-router-dom'
+import { characters } from '../constants'
 import { globalContext } from '../contexts/GlobalContext'
-
-const characters = [
-  {
-    name: 'Remco Evenepoel'
-  },
-  {
-    name: 'Wout van Aert'
-  },
-  {
-    name: 'Mathieu van der Poel'
-  },
-  {
-    name: 'Michael Boogert'
-  },
-  {
-    name: 'Thalita de Jong'
-  },
-  {
-    name: 'Veronique Belleter'
-  }
-]
 
 export default function PickCharacter() {
   const { setPlayer } = useContext(globalContext)
@@ -32,7 +12,7 @@ export default function PickCharacter() {
         <img className="background" src="/images/background5.jpg" />
         <div className="characters">
           {characters.map((character, index) => (
-            <Link to="/route" key={character.name} className="character" onClick={() => setPlayer(index + 1)}>
+            <Link to="/route" key={character.name} className="character" onClick={() => setPlayer(index)}>
               <h2 className="name">{character.name}</h2>
               <img className="player" src={`/images/players/${index + 1}.png`} />
               <img className="bike" src={`/images/bikes/${index + 1}.png`} />
