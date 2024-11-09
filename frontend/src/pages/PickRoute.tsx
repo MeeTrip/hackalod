@@ -4,14 +4,8 @@ import { useContext, useEffect } from 'react'
 import { MapContainer, Polyline, TileLayer, useMap } from 'react-leaflet'
 import { Link } from 'react-router-dom'
 import useSWR from 'swr'
+import { routes } from '../constants'
 import { globalContext } from '../contexts/GlobalContext'
-
-const routes = [
-  {
-    name: 'Kempen route',
-    apiLink: `https://api.triplydb.com/queries/MeeTrip/route/run?pageSize=10000`
-  }
-]
 
 function Gpx({ apiLink }: { apiLink: string }) {
   const { data = [], error, isLoading } = useSWR('routes', () => fetch(apiLink).then(response => response.json()))
@@ -41,7 +35,7 @@ export default function PickRoute() {
         {routes.map((route, index) => (
           <div className="route" key={route.name}>
             <h2>{route.name}</h2>
-            <Link to="/execute" onClick={() => setRoute(index + 1)}>
+            <Link to="/execute" onClick={() => setRoute(index)}>
               <MapContainer className="map" center={[0, 0]} zoom={9}>
                 <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
                 <Gpx apiLink={route.apiLink} />

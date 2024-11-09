@@ -4,23 +4,23 @@ import { createContext, ReactNode, useState } from 'react'
 export const globalContext = createContext<{
   play: () => void
   pause: () => void
-  player?: number
+  player: number
   setPlayer: (number: number) => void
-  route?: number
+  route: number
   setRoute: (number: number) => void
 }>({
   play: () => null,
   pause: () => null,
-  player: undefined,
+  player: 0,
   setPlayer: (number: number) => null,
-  route: undefined,
+  route: 0,
   setRoute: (number: number) => null
 })
 
 export default function AudioContextProvider({ children }: { children: ReactNode }) {
   const [sound] = useState(new Howl({ src: ['/background.mp3'] }))
-  const [player, setPlayer] = useState<number>()
-  const [route, setRoute] = useState<number>()
+  const [player, setPlayer] = useState<number>(0)
+  const [route, setRoute] = useState<number>(0)
 
   return (
     <globalContext.Provider
