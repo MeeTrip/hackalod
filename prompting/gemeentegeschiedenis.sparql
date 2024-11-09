@@ -1,0 +1,28 @@
+# https://druid.datalegend.net/dataLegend/gemeentegeschiedenis/sparql
+prefix ocab: <http://www.gemeentegeschiedenis.nl/gg-schema#>
+prefix schema: <http://schema.org/>
+prefix skos: <http://www.w3.org/2004/02/skos/core#>
+prefix rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+prefix : <https://example.org/>
+prefix wdt: <http://www.wikidata.org/prop/direct/>
+
+SELECT ?type ?name ?desc ?media
+where {
+  ?a ^ocab:resourceGeonames ?a_m.
+  ?a_m rdfs:label ?name.
+  ?b ^ocab:resourceGeonames ?b_m.                       
+                           
+  ?a_m ocab:originatedFrom ?b_m.
+  ?b_m rdfs:label ?b_name.
+  ?a_m skos:broader/rdfs:label ?c_name
+
+  BIND (REPLACE(STR(?b), "^.*/([^/]*)$", "$1") AS ?gn_id)
+  BIND ("Gemeente" AS ?type)
+  SERVICE <https://query.wikidata.org/bigdata/namespace/wdq/sparql> {
+    ?x ?p ?gn_id.
+    ?x wdt:P18 ?media.
+    ?x schema:description ?wdt_desc.
+    FILTER (langMatches(lang(?wdt_desc), "nl"))
+  }
+  BIND (CONCAT(?name, " heette vroeger ", ?b_name, ". ", ?wdt_desc) AS ?desc)
+} 
