@@ -5,19 +5,19 @@ import { MapContainer, Polyline, TileLayer, useMap } from 'react-leaflet'
 import { Link } from 'react-router-dom'
 import useSWR from 'swr'
 import { globalContext } from '../contexts/GlobalContext'
+import { gpxFetcher } from '../helpers/gpxFetcher'
 
-function Gpx({ apiLink }: { apiLink: string }) {
-  const { data = [], error, isLoading } = useSWR('routes', () => fetch(apiLink).then(response => response.json()))
-
-  const points = data.map((item: any) => [item.lat, item.lng])
+function Gpx({ gpxIri }: { gpxIri: string }) {
+  const localName = gpxIri.split(/\/|\#/g).pop()!
+  const { data: points, error, isLoading } = useSWR(`route-${localName}`, gpxFetcher(localName))
   const map = useMap()
 
   useEffect(() => {
-    if (!data.length) return
+    if (!points?.length) return
     const line = lineString(points)
     const bboxMap = bbox(line)
     map.fitBounds(bboxPolygon(bboxMap).geometry.coordinates)
-  }, [data])
+  }, [points])
 
   return !isLoading && !error ? <Polyline pathOptions={{ fillColor: 'red', color: 'blue' }} positions={points} /> : null
 }
@@ -42,7 +42,7 @@ export default function PickRoute() {
             <Link to="/execute" onClick={() => setRoute(route.id)}>
               <MapContainer className="map" center={[0, 0]} zoom={9}>
                 <TileLayer url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
-                {/* <Gpx apiLink={route.apiLink} /> */}
+                <Gpx gpxIri={route.id} />
               </MapContainer>
             </Link>
           </div>

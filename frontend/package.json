@@ -13,6 +13,7 @@
     "@fontsource/press-start-2p": "^5.1.0",
     "@turf/turf": "^7.1.0",
     "@uidotdev/usehooks": "^2.4.1",
+    "@we-gold/gpxjs": "^1.0.12",
     "cesium": "^1.123.1",
     "howler": "^2.2.4",
     "leaflet": "^1.9.4",

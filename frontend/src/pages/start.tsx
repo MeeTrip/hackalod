@@ -7,7 +7,7 @@ export default function Start() {
 
   return (
     <div className="page start">
-      <h1>Heritage Heroes</h1>
+      <h1>Tour de Tijd</h1>
 
       <img className="background" src="/images/background5.jpg" />
       <Link className="nes-btn" onClick={play} to="/character">

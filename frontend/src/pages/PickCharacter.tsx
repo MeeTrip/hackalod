@@ -4,11 +4,13 @@ import useSWR from 'swr'
 import { globalContext } from '../contexts/GlobalContext'
 
 export default function PickCharacter() {
-  const { data: players = [] } = useSWR<{ name: string; id: string }[]>('players', () =>
+  const { data: players = [] } = useSWR<{ name: string; id: string; image: string }[]>('players', () =>
     fetch(`https://api.triplydb.com/queries/MeeTrip/racers/run`).then(response => response.json())
   )
 
   const { setPlayer } = useContext(globalContext)
+
+  console.log(players)
   return (
     <>
       <div className="page pick-character">
@@ -18,7 +20,7 @@ export default function PickCharacter() {
           {players.map((player, index) => (
             <Link to="/route" key={player.id} className="character" onClick={() => setPlayer(player.id)}>
               <h2 className="name">{player.name}</h2>
-              <img className="player" src={`/images/players/${index + 1}.png`} />
+              <img className="player" src={`https://wsrv.nl?url=${player.image}&default=${player.image}`} />
               <img className="bike" src={`/images/bikes/${index + 1}.png`} />
             </Link>
           ))}

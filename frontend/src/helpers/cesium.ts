@@ -30,8 +30,8 @@ export const cesium = async (data: any[], tickCallback: (position: { lat: number
   viewer.scene.globe.enableLighting = true
   viewer.scene.globe.depthTestAgainstTerrain = true
 
-  const start = JulianDate.fromDate(new Date(data.at(0).time))
-  const stop = JulianDate.fromDate(new Date(data.at(-1).time))
+  const start = JulianDate.fromDate(data.at(0)![2])
+  const stop = JulianDate.fromDate(data.at(-1)![2])
   const duration = stop.secondsOfDay - start.secondsOfDay
 
   viewer.clock.startTime = start.clone()
@@ -49,9 +49,9 @@ export const cesium = async (data: any[], tickCallback: (position: { lat: number
   const lastTime = times[times.length - 1]
   const delta = lastTime - firstTime
 
-  const points = data.map((item: any) => Cartesian3.fromDegrees(parseFloat(item.lng), parseFloat(item.lat)))
-  const before = Cartesian3.fromDegrees(parseFloat(data.at(0).lng), parseFloat(data.at(0).lat))
-  const after = Cartesian3.fromDegrees(parseFloat(data.at(-1).lng), parseFloat(data.at(-1).lat))
+  const points = data.map((item: any) => Cartesian3.fromDegrees(parseFloat(item[1]), parseFloat(item[0])))
+  const before = Cartesian3.fromDegrees(data.at(0)![1], data.at(0)![0])
+  const after = Cartesian3.fromDegrees(data.at(-1)![1], data.at(-1)![0])
 
   // Calculate first and last tangents.
   const firstTangent = Cartesian3.subtract(points[0], before, new Cartesian3())

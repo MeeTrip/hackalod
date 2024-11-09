@@ -1,12 +1,14 @@
 .page.pick-route {
     .map {
-        width: 500px;
-        height: 500px;
+        width: 200px;
+        height: 200px;
+        flex: 1 1 200px;
         pointer-events: none;
     }
 
     .routes {
         display: flex;
+        flex-wrap: wrap;
         justify-content: center;
     }
 
