@@ -1,0 +1,10 @@
+.page.execute {
+    #cesiumContainer {
+        height: 100vh;
+    }
+
+    .cesium-widget-credits,
+    .cesium-viewer-toolbar {
+        display: none;
+    }
+}

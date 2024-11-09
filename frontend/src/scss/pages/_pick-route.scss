@@ -13,4 +13,12 @@
     .leaflet-control-container {
         display: none;
     }
+
+    .route {
+        &:hover {
+            .name {
+                color: rgb(84, 224, 84);
+            }
+        }
+    }
 }
